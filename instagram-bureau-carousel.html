@@ -27,12 +27,12 @@
     }
 
     :root {
-      --ink: #160c25;
-      --orange: #ff5a00;
-      --pink: #ff2e8b;
-      --cyan: #00dff2;
-      --cream: #fff3d9;
-      --paper: #fffaf0;
+      --ink: #050505;
+      --orange: #e51b23;
+      --pink: #efb735;
+      --cyan: #4d7768;
+      --cream: #f1ead8;
+      --paper: #e4dbc6;
     }
 
     * { box-sizing: border-box; }
@@ -61,7 +61,14 @@
     .orange { background: var(--orange); }
     .pink { background: var(--pink); }
     .cyan { background: var(--cyan); }
-    .cream { background: var(--cream); }
+    .cream {
+      background-color: var(--cream);
+      background-image:
+        radial-gradient(circle at 14% 20%, rgba(0,0,0,.06) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 61%, rgba(0,0,0,.05) 0 1px, transparent 2px),
+        repeating-linear-gradient(0deg, transparent 0 17px, rgba(0,0,0,.018) 18px 19px);
+      background-size: 31px 29px, 37px 41px, auto;
+    }
     .ink { background: var(--ink); color: var(--cream); }
 
     .grid {
@@ -531,6 +538,101 @@
       margin: 0;
       font: 800 30px/1.12 Inter, sans-serif;
       letter-spacing: -.03em;
+    }
+
+    /* Constructivist newspaper edition */
+    .stamp {
+      background: var(--pink);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    #card1 .cover-title {
+      max-width: 820px;
+      transform: rotate(-2.5deg);
+      transform-origin: left center;
+      font-size: 116px;
+    }
+    #card1 .cover-sub {
+      display: inline-block;
+      width: auto;
+      padding: 13px 18px 16px;
+      background: var(--cream);
+      color: var(--ink);
+      box-shadow: 10px 10px 0 var(--ink);
+      transform: rotate(2deg);
+    }
+    #card1::after {
+      position: absolute;
+      width: 265px;
+      height: 265px;
+      right: 70px;
+      top: 285px;
+      z-index: -2;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 18px 18px 0 var(--ink);
+      content: "";
+      transform: rotate(-9deg);
+    }
+    #card2 .case:nth-child(1) { transform: rotate(-1deg); }
+    #card2 .case:nth-child(2) { transform: rotate(1.2deg) translateX(10px); }
+    #card2 .case:nth-child(3) { transform: rotate(-.7deg) translateX(-4px); }
+    #card2 .specimen {
+      box-shadow: 15px 15px 0 var(--ink);
+      transform: rotate(1deg);
+    }
+    #card3 .display {
+      transform: rotate(-1.2deg);
+      transform-origin: left center;
+    }
+    #card3 .dash {
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    #card3 .dash:nth-child(1) { transform: rotate(-1.3deg); }
+    #card3 .dash:nth-child(2) { transform: rotate(1deg) translateY(5px); }
+    #card3 .dash:nth-child(3) { transform: rotate(.7deg) translateX(5px); }
+    #card3 .dash:nth-child(4) { transform: rotate(-1deg); }
+    #card4 .quote {
+      display: inline;
+      background: var(--cream);
+      box-shadow: 13px 0 0 var(--cream), -13px 0 0 var(--cream);
+      line-height: 1.13;
+      transform: rotate(-2deg);
+    }
+    #card4 .quote-small {
+      max-width: 760px;
+      padding: 18px 23px;
+      background: var(--ink);
+      color: var(--cream);
+      box-shadow: 11px 11px 0 var(--cream);
+      transform: rotate(2.2deg);
+    }
+    #card5 .flow:nth-child(odd) { transform: rotate(-.55deg); }
+    #card5 .flow:nth-child(even) { transform: rotate(.55deg) translateX(8px); }
+    #card6 .field:nth-child(1) { transform: rotate(-.8deg); }
+    #card6 .field:nth-child(2) { transform: rotate(.7deg) translateX(10px); }
+    #card6 .field:nth-child(3) { transform: rotate(-.45deg); }
+    #card6 .chip:nth-child(even) {
+      background: var(--orange);
+      transform: rotate(2deg);
+    }
+    #card7 .principle:nth-child(odd) { transform: rotate(-.45deg); }
+    #card7 .principle:nth-child(even) { transform: rotate(.55deg) translateX(7px); }
+    #card8 .display {
+      max-width: 850px;
+      transform: rotate(-1.5deg);
+      transform-origin: left center;
+    }
+    #card8 .medium.serif {
+      display: inline-block;
+      padding: 13px 18px 17px;
+      background: var(--orange);
+      color: var(--cream);
+      box-shadow: 10px 10px 0 var(--ink);
+      transform: rotate(1.5deg);
+    }
+    #card8 .cta {
+      box-shadow: 12px 12px 0 var(--orange);
+      transform: rotate(-.7deg);
     }
   </style>
 </head>
