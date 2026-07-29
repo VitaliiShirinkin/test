@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1080, initial-scale=1">
+  <title>Перекатчики — motion backgrounds</title>
+  <style>
+    @font-face {
+      font-family: Inter;
+      src: url("file:///usr/share/fonts/truetype/macos/Inter-Bold.ttf");
+      font-weight: 800;
+    }
+    @font-face {
+      font-family: JetBrains;
+      src: url("file:///usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Bold.ttf");
+      font-weight: 700;
+    }
+    :root {
+      --black:#050505;
+      --green:#4d7768;
+      --red:#e51b23;
+      --cream:#f1ead8;
+      --mustard:#efb735;
+    }
+    * { box-sizing:border-box; }
+    html,body {
+      width:1080px;
+      height:1350px;
+      margin:0;
+      overflow:hidden;
+      background:var(--black);
+      font-family:Inter,Arial,sans-serif;
+    }
+    .card {
+      position:relative;
+      display:none;
+      width:1080px;
+      height:1350px;
+      overflow:hidden;
+      padding:60px 68px;
+      isolation:isolate;
+    }
+    .card:target { display:block; }
+    .red { background:var(--red); color:var(--black); }
+    .green { background:var(--green); color:var(--black); }
+    .black { background:var(--black); color:var(--cream); }
+    .mustard { background:var(--mustard); color:var(--black); }
+    .paper {
+      color:var(--black);
+      background-color:var(--cream);
+      background-image:
+        radial-gradient(circle at 14% 20%,rgba(0,0,0,.07) 0 1px,transparent 2px),
+        radial-gradient(circle at 72% 61%,rgba(0,0,0,.05) 0 1px,transparent 2px),
+        repeating-linear-gradient(0deg,transparent 0 17px,rgba(0,0,0,.02) 18px 19px);
+      background-size:31px 29px,37px 41px,auto;
+    }
+    .grid {
+      position:absolute;
+      inset:0;
+      z-index:-5;
+      opacity:.65;
+      background-image:
+        linear-gradient(rgba(0,0,0,.1) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,0,0,.1) 1px,transparent 1px);
+      background-size:54px 54px;
+      mask-image:linear-gradient(to bottom,transparent,#000 11%,#000 89%,transparent);
+    }
+    .black .grid {
+      background-image:
+        linear-gradient(rgba(241,234,216,.09) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(241,234,216,.09) 1px,transparent 1px);
+    }
+    .noise {
+      position:absolute;
+      inset:-40%;
+      z-index:20;
+      pointer-events:none;
+      opacity:.07;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.85'/%3E%3C/svg%3E");
+      mix-blend-mode:multiply;
+      transform:rotate(8deg);
+    }
+    .meta {
+      position:relative;
+      z-index:4;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font:700 21px/1 JetBrains,monospace;
+      text-transform:uppercase;
+    }
+    .meta span:first-child {
+      display:inline-flex;
+      align-items:center;
+      gap:13px;
+    }
+    .dot {
+      width:16px;
+      height:16px;
+      border:3px solid currentColor;
+      border-radius:50%;
+      background:var(--mustard);
+    }
+    .rule {
+      position:relative;
+      z-index:4;
+      height:5px;
+      margin-top:24px;
+      background:currentColor;
+    }
+
+    /* TV */
+    .tv-card { background:var(--green); color:var(--black); }
+    .tv {
+      position:absolute;
+      width:940px;
+      height:960px;
+      left:70px;
+      top:105px;
+      padding:31px;
+      border:7px solid var(--black);
+      border-radius:48px;
+      background:var(--black);
+      box-shadow:18px 20px 0 var(--red);
+      transform:rotate(-.7deg);
+    }
+    .screen {
+      width:864px;
+      height:648px;
+      overflow:hidden;
+      border:7px solid var(--cream);
+      border-radius:27px;
+      background:var(--black);
+    }
+    .screen img {
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+    .console {
+      display:grid;
+      grid-template-columns:1fr 150px;
+      gap:24px;
+      align-items:center;
+      padding:28px 9px 0;
+      color:var(--cream);
+    }
+    .brand {
+      font:800 42px/1 Inter,sans-serif;
+      letter-spacing:-.045em;
+      text-transform:uppercase;
+    }
+    .sub {
+      margin-top:10px;
+      color:var(--mustard);
+      font:700 18px/1.2 JetBrains,monospace;
+      text-transform:uppercase;
+    }
+    .controls {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .knob {
+      width:62px;
+      height:62px;
+      border:5px solid var(--cream);
+      border-radius:50%;
+      background:var(--red);
+    }
+    .speaker {
+      display:grid;
+      grid-template-columns:repeat(3,9px);
+      gap:7px;
+    }
+    .speaker i {
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--cream);
+    }
+    .case-label {
+      position:absolute;
+      left:77px;
+      top:1105px;
+      padding:14px 20px 12px;
+      background:var(--red);
+      color:var(--cream);
+      box-shadow:10px 10px 0 var(--black);
+      font:800 39px/1 Inter,sans-serif;
+      letter-spacing:-.04em;
+      text-transform:uppercase;
+      transform:rotate(1.3deg);
+    }
+
+    /* General shapes */
+    .ball {
+      position:absolute;
+      border:8px solid currentColor;
+      border-radius:50%;
+    }
+    .ball::before,.ball::after {
+      position:absolute;
+      inset:15%;
+      border:6px solid currentColor;
+      border-radius:44% 56% 49% 51%;
+      content:"";
+      transform:rotate(31deg);
+    }
+    .ball::after {
+      inset:29% 8% 11% 25%;
+      transform:rotate(-49deg);
+    }
+    .thread {
+      position:absolute;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:7;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    /* bg2 */
+    #bg2 .ball {
+      width:390px;
+      height:390px;
+      right:-55px;
+      bottom:95px;
+      background:var(--mustard);
+    }
+    #bg2 .weight {
+      position:absolute;
+      width:390px;
+      height:145px;
+      left:85px;
+      bottom:155px;
+      border-radius:80px;
+      background:var(--black);
+      transform:rotate(9deg);
+    }
+    #bg2 .paper-cut {
+      position:absolute;
+      width:630px;
+      height:210px;
+      left:80px;
+      top:685px;
+      background:var(--cream);
+      box-shadow:13px 13px 0 var(--black);
+      transform:rotate(1.5deg);
+    }
+
+    /* bg3 */
+    .night-window {
+      position:absolute;
+      width:930px;
+      height:1010px;
+      left:75px;
+      top:190px;
+      overflow:hidden;
+      border:6px solid var(--cream);
+      background:var(--green);
+      box-shadow:15px 15px 0 var(--red);
+    }
+    .road {
+      position:absolute;
+      width:300px;
+      height:1280px;
+      left:50%;
+      top:130px;
+      background:var(--red);
+      transform:translateX(-50%) perspective(520px) rotateX(52deg);
+      transform-origin:top center;
+    }
+    .moon {
+      position:absolute;
+      width:210px;
+      height:210px;
+      right:65px;
+      top:75px;
+      border-radius:50%;
+      background:var(--mustard);
+    }
+    .glyph {
+      position:absolute;
+      width:100px;
+      height:145px;
+      color:var(--cream);
+    }
+    .glyph::before {
+      position:absolute;
+      width:38px;
+      height:38px;
+      left:18px;
+      border:6px solid currentColor;
+      border-radius:50%;
+      background:currentColor;
+      content:"";
+    }
+    .glyph::after {
+      position:absolute;
+      width:15px;
+      height:75px;
+      left:30px;
+      top:37px;
+      background:currentColor;
+      box-shadow:-29px 45px 0 -4px currentColor,29px 45px 0 -4px currentColor;
+      content:"";
+    }
+    .glyph i {
+      position:absolute;
+      width:75px;
+      height:75px;
+      left:60px;
+      top:66px;
+      border:7px solid currentColor;
+      border-radius:50%;
+    }
+    .g1 { left:42px; bottom:50px; transform:scale(1.2); }
+    .g2 { right:58px; bottom:310px; }
+    .g3 { right:140px; top:135px; transform:scale(.75); }
+
+    /* bg4 */
+    .clippings {
+      position:absolute;
+      inset:210px 72px 110px;
+    }
+    .clip {
+      position:absolute;
+      width:390px;
+      height:245px;
+      border:6px solid var(--black);
+      box-shadow:13px 13px 0 var(--black);
+    }
+    .c1 { left:10px; top:90px; background:var(--cream); transform:rotate(-4deg); }
+    .c2 { right:8px; top:165px; background:var(--red); transform:rotate(3deg); }
+    .c3 { left:115px; top:480px; background:var(--mustard); transform:rotate(2deg); }
+    .c4 { right:90px; top:610px; background:var(--green); transform:rotate(-3deg); }
+    .ticker {
+      position:absolute;
+      width:820px;
+      height:72px;
+      left:125px;
+      bottom:90px;
+      background:var(--black);
+      transform:rotate(-2deg);
+    }
+
+    /* bg5 */
+    .gauge {
+      position:absolute;
+      width:820px;
+      height:410px;
+      left:130px;
+      top:550px;
+      overflow:hidden;
+      border-radius:410px 410px 0 0;
+      background:var(--cream);
+      box-shadow:18px 18px 0 var(--black);
+    }
+    .gauge::before {
+      position:absolute;
+      width:590px;
+      height:295px;
+      left:115px;
+      bottom:0;
+      border-radius:310px 310px 0 0;
+      background:var(--green);
+      content:"";
+    }
+    .needle {
+      position:absolute;
+      width:345px;
+      height:17px;
+      left:410px;
+      bottom:20px;
+      background:var(--red);
+      transform:rotate(-35deg);
+      transform-origin:left center;
+    }
+    .needle::before {
+      position:absolute;
+      width:62px;
+      height:62px;
+      left:-31px;
+      top:-22px;
+      border-radius:50%;
+      background:var(--black);
+      content:"";
+    }
+    .note {
+      position:absolute;
+      width:530px;
+      height:135px;
+      left:90px;
+      bottom:105px;
+      border:6px solid var(--black);
+      background:var(--cream);
+      box-shadow:11px 11px 0 var(--red);
+      transform:rotate(-2deg);
+    }
+
+    /* bg6 */
+    .arrow {
+      position:absolute;
+      width:470px;
+      height:13px;
+      left:150px;
+      top:670px;
+      background:var(--black);
+      transform:rotate(-8deg);
+    }
+    .arrow::after {
+      position:absolute;
+      width:60px;
+      height:60px;
+      right:-3px;
+      top:-23px;
+      border-top:13px solid var(--black);
+      border-right:13px solid var(--black);
+      content:"";
+      transform:rotate(45deg);
+    }
+    .small-step {
+      position:absolute;
+      width:95px;
+      height:95px;
+      left:640px;
+      top:610px;
+      border:9px solid var(--black);
+      border-radius:50%;
+      background:var(--mustard);
+      box-shadow:20px 20px 0 var(--red);
+    }
+    .aside {
+      position:absolute;
+      width:580px;
+      height:230px;
+      right:65px;
+      bottom:150px;
+      border:6px solid var(--black);
+      background:var(--red);
+      box-shadow:13px 13px 0 var(--black);
+      transform:rotate(2deg);
+    }
+
+    /* bg7 */
+    .one {
+      position:absolute;
+      left:24px;
+      top:190px;
+      color:var(--red);
+      font:800 830px/.75 Inter,sans-serif;
+      letter-spacing:-.12em;
+    }
+    .paper-note {
+      position:absolute;
+      width:710px;
+      height:350px;
+      right:65px;
+      top:350px;
+      background:var(--cream);
+      box-shadow:17px 17px 0 var(--mustard);
+      transform:rotate(-2deg);
+    }
+    .small-note {
+      position:absolute;
+      width:555px;
+      height:210px;
+      right:90px;
+      bottom:185px;
+      border:5px solid var(--cream);
+      transform:rotate(1.7deg);
+    }
+
+    /* bg8 */
+    #bg8 .ball {
+      width:390px;
+      height:390px;
+      right:-45px;
+      bottom:150px;
+      background:var(--mustard);
+    }
+    #bg8 .thread {
+      width:900px;
+      height:420px;
+      left:-140px;
+      bottom:0;
+      color:var(--green);
+    }
+    .red-strip {
+      position:absolute;
+      width:690px;
+      height:115px;
+      left:95px;
+      top:725px;
+      background:var(--red);
+      box-shadow:12px 12px 0 var(--black);
+      transform:rotate(2deg);
+    }
+    .bureau-name {
+      position:absolute;
+      left:70px;
+      bottom:90px;
+      font:800 42px/1 Inter,sans-serif;
+      letter-spacing:-.04em;
+      text-transform:uppercase;
+    }
+  </style>
+</head>
+<body>
+  <section class="card tv-card" id="bg1">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Архив наблюдений</span><span>00 / 08</span></div>
+    <div class="tv">
+      <div class="screen"><img src="file:///workspace/perekatchiki-original.jpg" alt=""></div>
+      <div class="console">
+        <div>
+          <div class="brand">Бюро неучтённых явлений</div>
+          <div class="sub">Сигнал принят · рациональное объяснение разыскивается</div>
+        </div>
+        <div class="controls">
+          <div class="knob"></div>
+          <div class="speaker"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="case-label">Дело №001. Перекатчики</div>
+  </section>
+
+  <section class="card red" id="bg2">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Масса решений</span><span>01 / 08</span></div>
+    <div class="rule"></div>
+    <div class="paper-cut"></div><div class="weight"></div><div class="ball"></div>
+  </section>
+
+  <section class="card black" id="bg3">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Ночная смена</span><span>02 / 08</span></div>
+    <div class="rule"></div>
+    <div class="night-window">
+      <div class="road"></div><div class="moon"></div>
+      <div class="glyph g1"><i></i></div>
+      <div class="glyph g2"><i></i></div>
+      <div class="glyph g3"><i></i></div>
+    </div>
+  </section>
+
+  <section class="card paper" id="bg4">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Состав клубков</span><span>03 / 08</span></div>
+    <div class="rule"></div>
+    <div class="clippings"><i class="clip c1"></i><i class="clip c2"></i><i class="clip c3"></i><i class="clip c4"></i></div>
+    <div class="ticker"></div>
+  </section>
+
+  <section class="card green" id="bg5">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Измерение нагрузки</span><span>04 / 08</span></div>
+    <div class="rule"></div>
+    <div class="gauge"><i class="needle"></i></div><div class="note"></div>
+  </section>
+
+  <section class="card mustard" id="bg6">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Передача объекта</span><span>05 / 08</span></div>
+    <div class="rule"></div>
+    <div class="arrow"></div><div class="small-step"></div><div class="aside"></div>
+  </section>
+
+  <section class="card black" id="bg7">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Минимально достаточное</span><span>06 / 08</span></div>
+    <div class="rule"></div>
+    <div class="one">1</div><div class="paper-note"></div><div class="small-note"></div>
+  </section>
+
+  <section class="card paper" id="bg8">
+    <div class="grid"></div><div class="noise"></div>
+    <div class="meta"><span><i class="dot"></i> Вопрос по делу</span><span>07 / 08</span></div>
+    <div class="rule"></div>
+    <div class="red-strip"></div><div class="ball"></div>
+    <svg class="thread" viewBox="0 0 900 420"><path d="M8 340 C95 235 185 410 264 270 S420 100 520 220 S700 415 890 48"/><path d="M164 290 C120 190 310 184 256 302 C207 410 90 219 219 173 C365 120 376 365 218 368"/></svg>
+    <div class="bureau-name">Бюро неучтённых явлений</div>
+  </section>
+</body>
+</html>

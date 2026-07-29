@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4efe5">
+  <title>Идеи для раскрутки авторского канала</title>
+  <style>
+    :root {
+      --bg: #f4efe5;
+      --surface: rgba(255, 253, 248, 0.88);
+      --surface-solid: #fffdf8;
+      --text: #292620;
+      --muted: #6e685e;
+      --accent: #895c42;
+      --accent-soft: #ead7c6;
+      --border: rgba(80, 64, 48, 0.16);
+      --shadow: 0 18px 60px rgba(72, 52, 35, 0.11);
+      --max-width: 1120px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #191816;
+      --surface: rgba(36, 33, 29, 0.9);
+      --surface-solid: #24211d;
+      --text: #f2ede4;
+      --muted: #b8b0a5;
+      --accent: #d69d78;
+      --accent-soft: #4a3428;
+      --border: rgba(240, 225, 205, 0.14);
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(198, 143, 101, 0.16), transparent 31rem),
+        radial-gradient(circle at 90% 20%, rgba(109, 127, 92, 0.13), transparent 28rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.68;
+      transition: color 180ms ease, background-color 180ms ease;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.2em;
+    }
+
+    a:hover {
+      text-decoration-thickness: 0.13em;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .progress {
+      position: fixed;
+      z-index: 20;
+      inset: 0 0 auto;
+      height: 4px;
+      background: transparent;
+    }
+
+    .progress__bar {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg) 84%, transparent);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(calc(100% - 32px), var(--max-width));
+      min-height: 64px;
+      margin: 0 auto;
+      gap: 18px;
+    }
+
+    .brand {
+      overflow: hidden;
+      font-weight: 750;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .theme-toggle {
+      flex: 0 0 auto;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 8px 12px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      width: min(calc(100% - 32px), var(--max-width));
+      margin: 36px auto 80px;
+      gap: 38px;
+      align-items: start;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero,
+    .message,
+    .section-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 6vw, 64px);
+      margin-bottom: 28px;
+    }
+
+    .hero::after {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      right: -95px;
+      bottom: -120px;
+      border: 42px solid var(--accent-soft);
+      border-radius: 50%;
+      content: "";
+      opacity: 0.55;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.16;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.3rem, 7vw, 5.1rem);
+      letter-spacing: -0.045em;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+    }
+
+    .message {
+      padding: 24px 26px;
+      margin-bottom: 28px;
+    }
+
+    .message__label {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .message p:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-card {
+      padding: clamp(24px, 5vw, 48px);
+      margin-top: 28px;
+    }
+
+    h2 {
+      margin: 0 0 24px;
+      font-size: clamp(1.75rem, 4vw, 2.65rem);
+      letter-spacing: -0.025em;
+    }
+
+    h3 {
+      margin: 34px 0 12px;
+      font-size: clamp(1.25rem, 3vw, 1.65rem);
+    }
+
+    p {
+      margin: 0 0 1em;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.35em;
+    }
+
+    li + li {
+      margin-top: 0.45em;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      margin: 0 -6px;
+      padding: 0 6px 8px;
+      border-radius: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+    }
+
+    th,
+    td {
+      padding: 15px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    blockquote {
+      margin: 20px 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 14px 14px 0;
+      background: var(--accent-soft);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.08rem;
+    }
+
+    code {
+      padding: 0.1em 0.35em;
+      border-radius: 5px;
+      background: var(--accent-soft);
+      font-size: 0.9em;
+    }
+
+    .toc {
+      position: sticky;
+      top: 90px;
+      max-height: calc(100vh - 120px);
+      overflow: auto;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+    }
+
+    .toc h2 {
+      margin-bottom: 14px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .toc li + li {
+      margin-top: 8px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 5px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+      text-decoration: none;
+    }
+
+    .toc a:hover,
+    .toc a[aria-current="true"] {
+      color: var(--accent);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 46px;
+      height: 46px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--surface-solid);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: 160ms ease;
+    }
+
+    .back-to-top.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    footer {
+      width: min(calc(100% - 32px), var(--max-width));
+      margin: -44px auto 42px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    :focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 880px) {
+      .layout {
+        display: block;
+        margin-top: 22px;
+      }
+
+      .toc {
+        position: static;
+        max-height: none;
+        margin: 0 0 28px;
+      }
+
+      .toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 18px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      body {
+        font-size: 16px;
+      }
+
+      .topbar__inner,
+      .layout,
+      footer {
+        width: min(calc(100% - 20px), var(--max-width));
+      }
+
+      .layout {
+        margin-bottom: 64px;
+      }
+
+      .hero,
+      .message,
+      .section-card,
+      .toc {
+        border-radius: 18px;
+      }
+
+      .hero {
+        padding: 30px 22px 38px;
+      }
+
+      .message,
+      .section-card {
+        padding: 22px 18px;
+      }
+
+      .toc ol {
+        display: block;
+      }
+
+      .table-scroll {
+        overflow: visible;
+      }
+
+      table,
+      tbody,
+      tr,
+      td {
+        display: block;
+        width: 100%;
+      }
+
+      thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      tr {
+        padding: 15px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--surface-solid) 72%, transparent);
+      }
+
+      tr + tr {
+        margin-top: 12px;
+      }
+
+      td {
+        padding: 4px 0;
+        border: 0;
+      }
+
+      td::before {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        content: attr(data-label);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      td:first-child::before {
+        margin-top: 0;
+      }
+    }
+
+    @media print {
+      :root {
+        --bg: #fff;
+        --surface: #fff;
+        --surface-solid: #fff;
+        --text: #000;
+        --muted: #444;
+        --border: #ccc;
+        --shadow: none;
+      }
+
+      body {
+        background: #fff;
+        font-size: 11pt;
+      }
+
+      .topbar,
+      .progress,
+      .toc,
+      .back-to-top {
+        display: none;
+      }
+
+      .layout {
+        display: block;
+        width: 100%;
+        margin: 0;
+      }
+
+      .hero,
+      .message,
+      .section-card {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+
+      a {
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">Идеи для авторского канала</div>
+      <button class="theme-toggle" type="button" aria-label="Переключить цветовую тему" title="Переключить тему">
+        <span aria-hidden="true">◐</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Сохранённый диалог</p>
+        <h1>Идеи для раскрутки авторского канала</h1>
+        <p class="lead">Подборка работающих текстово-визуальных форматов, механизмов роста и концепций для собственного проекта.</p>
+      </section>
+
+      <article class="message" aria-labelledby="assistant-message">
+        <p class="message__label" id="assistant-message">Последнее сообщение ассистента</p>
+        <p>Теперь фокус правильный: не «найти тему», а обнаружить повторяемый формат, который сам производит идеи и подписки. Все ссылки ниже ведут непосредственно на проекты.</p>
+      </article>
+
+      <section class="section-card" id="russian">
+        <h2>Российские примеры</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Проект</th>
+                <th>Масштаб</th>
+                <th>Механика</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Проект"><a href="https://vk.com/by_duran">Duran</a></td>
+                <td data-label="Масштаб">≈437 тыс. в VK; 15–80 тыс. просмотров в <a href="https://t.me/by_duran">Telegram</a></td>
+                <td data-label="Механика">Обыденная ситуация получает абсурдное или фантастическое продолжение. Собственная мифология растёт из отдельных шуток</td>
+              </tr>
+              <tr>
+                <td data-label="Проект"><a href="https://vk.com/gudim_public">Gudim</a></td>
+                <td data-label="Масштаб">≈281 тыс.</td>
+                <td data-label="Механика">Знакомый предмет или ситуация плюс один визуальный парадокс. Часто понятен вообще без текста</td>
+              </tr>
+              <tr>
+                <td data-label="Проект"><a href="https://vk.com/souffrantmittelalter">Страдающее Средневековье</a></td>
+                <td data-label="Масштаб">≈526 тыс.</td>
+                <td data-label="Механика">Историческое изображение получает современную подпись. Два слоя: мгновенная шутка и культурный контекст</td>
+              </tr>
+              <tr>
+                <td data-label="Проект"><a href="https://vk.com/xandertoons">Сова — эффективный менеджер</a></td>
+                <td data-label="Масштаб">≈26 тыс. в VK, ≈10 тыс. на <a href="https://pikabu.ru/community/sova_manager">Pikabu</a></td>
+                <td data-label="Механика">Один персонаж стал линзой для всей офисной жизни. Читатель заранее знает, какое удовольствие получит</td>
+              </tr>
+              <tr>
+                <td data-label="Проект"><a href="https://vk.ru/club94058321">Ведьмин сад</a></td>
+                <td data-label="Масштаб">≈44 тыс.; 10–20 тыс. просмотров</td>
+                <td data-label="Механика">Не сюжет, а место, куда хочется возвращаться: дом, кот, травы, сезоны, маленькая магия</td>
+              </tr>
+              <tr>
+                <td data-label="Проект"><a href="https://t.me/bestiariy_mif">Бестиарий</a></td>
+                <td data-label="Масштаб">≈63 тыс.; обычно 5–8 тыс. просмотров</td>
+                <td data-label="Механика">Единый визуальный вкус позволяет публиковать разные темы, не разрушая идентичность</td>
+              </tr>
+              <tr>
+                <td data-label="Проект"><a href="https://t.me/minutka_ethnography">Минутка этнографии</a></td>
+                <td data-label="Масштаб">≈17 тыс.; 3–7 тыс., иногда 16 тыс.</td>
+                <td data-label="Механика">Реальные странности народной культуры упакованы как занимательное чтение</td>
+              </tr>
+              <tr>
+                <td data-label="Проект"><a href="https://t.me/thetaleofthecities">Огонь, вода, города</a></td>
+                <td data-label="Масштаб">Пока десятки–сотни просмотров</td>
+                <td data-label="Механика">Города представлены живыми персонажами. Прекрасная идея, но пока не доказательство раскрутки</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Последний пример важен: хорошая задумка сама по себе не гарантирует рост. Нужны понятная упаковка, регулярность и материал, который удобно пересылать.</p>
+      </section>
+
+      <section class="section-card" id="international">
+        <h2>Международные источники вдохновения</h2>
+
+        <h3>Простое фантастическое допущение</h3>
+        <ul>
+          <li><a href="https://www.instagram.com/nathanwpylestrangeplanet/">Strange Planet</a> — инопланетяне описывают совершенно обычную человеческую жизнь буквально и странно. Около 6 млн подписчиков.</li>
+          <li><a href="https://poorlydrawnlines.com/">Poorly Drawn Lines</a> — намеренно простая графика, животные, абсурд и короткие диалоги. Около 2,2 млн в Instagram.</li>
+          <li><a href="https://www.asmallfiction.com/">A Small Fiction</a> — одна микрофантастика ежедневно; каждый текст открывает большой мир через несколько строк.</li>
+          <li><a href="https://microsff.com/">Micro SF/F</a> — тысячи фантастических историй длиной с один пост; проект доходил до 100 тыс. подписчиков в X.</li>
+          <li><a href="https://www.reddit.com/r/TwoSentenceHorror/">Two Sentence Horror</a> — страшная история строго в двух предложениях; около 1,9 млн участников.</li>
+        </ul>
+        <p><strong>Вывод:</strong> ограничение облегчает творчество и одновременно становится брендом.</p>
+
+        <h3>Один фильтр на реальный мир</h3>
+        <ul>
+          <li><a href="https://www.theuncomfortable.com/">The Uncomfortable</a> — привычные предметы переделаны так, чтобы ими было невозможно пользоваться.</li>
+          <li><a href="https://www.instagram.com/sadtopographies/">Sad Topographies</a> — реальные места с названиями вроде «Остров отчаяния» и «Дорога разбитых надежд».</li>
+          <li><a href="https://mcmansionhell.com/">McMansion Hell</a> — фотографии нелепых домов с остроумными пометками прямо на изображении.</li>
+          <li><a href="https://newsletter.pessimistsarchive.org/">Pessimists Archive</a> — старые газетные страхи перед велосипедами, электричеством, радио и другими новшествами.</li>
+          <li><a href="https://accidentallywesanderson.com/">Accidentally Wes Anderson</a> — реальные места, случайно похожие на кадры Уэса Андерсона; около 2 млн участников сообщества.</li>
+        </ul>
+        <p><strong>Вывод:</strong> автор не обязан постоянно изобретать мир. Иногда достаточно уникального правила отбора.</p>
+
+        <h3>Вымышленный архив</h3>
+        <ul>
+          <li><a href="https://scarfolk.substack.com/">Scarfolk</a> — документы и социальная реклама из несуществующего британского города. Миллионы посещений и две книги.</li>
+          <li><a href="https://www.mysteryfleshpitnationalpark.com/">Mystery Flesh Pit National Park</a> — карты, туристические буклеты и отчёты о вымышленном национальном парке внутри гигантского организма.</li>
+          <li><a href="https://www.cryptonaturalist.com/">The CryptoNaturalist</a> — поэтические полевые заметки о никогда не существовавших животных и растениях; более 250 тыс. подписчиков суммарно.</li>
+          <li><a href="https://ridiculouslyinteresting.com/">Museum of Ridiculously Interesting Things</a> — воображаемый музей реальных жутких и курьёзных предметов.</li>
+          <li><a href="https://yokai.com/">Yokai.com</a> — авторская иллюстрированная картотека японских существ.</li>
+        </ul>
+        <p><strong>Вывод:</strong> люди любят собирать мир по фрагментам. Полноценный роман для этого не требуется.</p>
+
+        <h3>Контент создаёт аудитория</h3>
+        <ul>
+          <li><a href="https://postsecret.com/">PostSecret</a> — люди анонимно присылают секрет на оформленной вручную открытке. Более миллиона присланных работ и сотни миллионов посещений.</li>
+          <li><a href="https://foundmagazine.com/">Found Magazine</a> — найденные записки, списки, фотографии и письма.</li>
+          <li><a href="https://deep-dark-fears.tumblr.com/">Deep Dark Fears</a> — подписчики присылают иррациональные страхи, художник превращает их в комиксы.</li>
+          <li><a href="https://www.humansofnewyork.com/">Humans of New York</a> — портрет плюс личная история; около 30 млн подписчиков на разных платформах.</li>
+          <li><a href="http://dearphotograph.com/">Dear Photograph</a> — старую фотографию совмещают с тем же местом в настоящем и дополняют коротким письмом.</li>
+        </ul>
+        <p><strong>Вывод:</strong> сильнейший двигатель роста — формат, в который читатель может встроить собственную историю.</p>
+      </section>
+
+      <section class="section-card" id="formula">
+        <h2>Общая формула работающих проектов</h2>
+        <ol>
+          <li>Концепцию можно объяснить одним предложением.</li>
+          <li>Пост понятен без знакомства с предыдущими.</li>
+          <li>За 3–5 секунд возникает любопытство или эмоция.</li>
+          <li>Есть второй слой для желающих задержаться.</li>
+          <li>Из одной идеи можно сделать сотни выпусков.</li>
+          <li>Публикацию приятно переслать без дополнительных объяснений.</li>
+          <li>Канал можно узнать по одному изображению без логотипа.</li>
+          <li>Аудитория способна предлагать материал.</li>
+        </ol>
+        <p>Именно <strong>формат</strong>, а не тематика, отвечает на вопрос «зачем подписываться».</p>
+      </section>
+
+      <section class="section-card" id="ideas">
+        <h2>Идеи, которые я считаю перспективными</h2>
+
+        <h3>1. Бюро неучтённых явлений</h3>
+        <p>Вымышленная современная организация регистрирует небольшие аномалии:</p>
+        <ul>
+          <li>тени, которые опаздывают за владельцами;</li>
+          <li>подъезд, иногда ведущий в детство;</li>
+          <li>пропавший из недели четверг;</li>
+          <li>котов, замеченных сразу в двух квартирах.</li>
+        </ul>
+        <p>Каждый пост — карточка дела, показание очевидца или инструкция населению. Можно делать уютно, смешно, тревожно или философски.</p>
+        <p>Это синтез <code>Scarfolk + PostSecret + Ведьмин сад</code>, но без советской стилизации и тяжёлого хоррора.</p>
+
+        <h3>2. Бюро утерянных ощущений</h3>
+        <p>Название и иллюстрация для чувств, у которых нет слова:</p>
+        <ul>
+          <li>радость от отменённой встречи;</li>
+          <li>тоска по месту, где никогда не был;</li>
+          <li>неловкость перед выброшенной вещью;</li>
+          <li>ощущение, что сон продолжается днём.</li>
+        </ul>
+        <p>Подписчики присылают ощущения, автор даёт им имя и образ. Потенциал: карточки, книга, календарь, тесты, принты.</p>
+
+        <h3>3. Музей быта будущего</h3>
+        <p>Человек из 2226 года неверно объясняет предметы нашего времени:</p>
+        <blockquote>«Пауэрбанк — переносной домашний алтарь, которому жители XXI века доверяли последние проценты надежды».</blockquote>
+        <p>Фотография или AI-визуализация, музейная этикетка, 100–200 слов. Легко, интеллектуально и практически бесконечно.</p>
+
+        <h3>4. Инструкции к несуществующим вещам</h3>
+        <p>Руководства, упаковки и реклама:</p>
+        <ul>
+          <li>зонт от чужих мнений;</li>
+          <li>фонарь для поиска потерянного времени;</li>
+          <li>будильник, который будит вашу более успешную версию;</li>
+          <li>карманный переводчик кошачьего молчания.</li>
+        </ul>
+        <p>Подходит для AI-концептов, но текст и арт-дирекцию лучше сохранять человеческими.</p>
+
+        <h3>5. Малая мифология современности</h3>
+        <p>Не древние лешие, а новые духи:</p>
+        <ul>
+          <li>хранитель непрочитанных сообщений;</li>
+          <li>существо, запутывающее наушники;</li>
+          <li>домовой съёмной квартиры;</li>
+          <li>дух последнего свободного места в автобусе.</li>
+        </ul>
+        <p>Фольклор здесь лишь форма; содержание — современная повседневность.</p>
+
+        <h3>6. Переписка вещей</h3>
+        <p>Короткие диалоги холодильника и ночного света, двух окон напротив, старого дома и нового торгового центра. Производство очень лёгкое, а тон можно менять от юмора до мягкой философии.</p>
+      </section>
+
+      <section class="section-card" id="recommendation">
+        <h2>Что запускать первым</h2>
+        <p>Самым сильным считаю <strong>«Бюро неучтённых явлений»</strong>. Оно:</p>
+        <ul>
+          <li>не ограничено одной темой;</li>
+          <li>допускает мистику, юмор, фантастику и лирику;</li>
+          <li>легко производится серийно;</li>
+          <li>позволяет принимать истории подписчиков;</li>
+          <li>имеет собственный визуальный язык;</li>
+          <li>превращается в книгу, карточки, карту города и мерч.</li>
+        </ul>
+        <p>AI здесь полезен для эскизов аномалий, фактур документов, вариантов композиции и перевода. Канон мира, тексты и финальный отбор должны оставаться за человеком.</p>
+      </section>
+
+      <section class="section-card" id="platforms">
+        <h2>Площадки для раскрутки</h2>
+        <ul>
+          <li><strong>VK — основная площадка обнаружения в РФ.</strong> В мае 2026 года VK обновил рекомендации: оригинальные авторы получают показы с первых публикаций независимо от числа подписчиков; у начинающих авторов число подписок после обновления выросло в среднем на 54%.</li>
+          <li><strong>Telegram — ядро сообщества и архив.</strong> Холодный старт сложнее: рост идёт через пересылки и блок «Похожие каналы».</li>
+          <li><strong>Дзен — расширенные истории и поисковый трафик.</strong></li>
+          <li><strong>Pinterest — длительное международное распространение иллюстраций:</strong> удачные публикации могут находить через поиск годами.</li>
+          <li><strong>Substack или собственный сайт — англоязычная версия и независимый архив.</strong></li>
+          <li><strong>MAX — пока только зеркало для эксперимента:</strong> рекомендации появились, но среда ещё формируется.</li>
+          <li><strong>Instagram — для зарубежной аудитории, но не как основа продвижения в РФ.</strong></li>
+        </ul>
+        <p>Практически я бы сначала подготовил по пять пробных публикаций для трёх концепций: «Бюро явлений», «Музей будущего» и «Утерянные ощущения». Победителя выбирать не по лайкам, а по пересылкам, сохранениям, подпискам с поста и времени производства.</p>
+      </section>
+
+      <article class="message" id="user-message" aria-labelledby="user-message-label">
+        <p class="message__label" id="user-message-label">Последнее сообщение пользователя</p>
+        <p>Сохрани мое и своё последние сообщения в html с адаптивным интерфейсом</p>
+      </article>
+    </main>
+
+    <aside class="toc" aria-label="Содержание">
+      <h2>Содержание</h2>
+      <ol>
+        <li><a href="#russian">Российские примеры</a></li>
+        <li><a href="#international">Международные проекты</a></li>
+        <li><a href="#formula">Формула успеха</a></li>
+        <li><a href="#ideas">Перспективные идеи</a></li>
+        <li><a href="#recommendation">Что запускать</a></li>
+        <li><a href="#platforms">Площадки</a></li>
+        <li><a href="#user-message">Сообщение пользователя</a></li>
+      </ol>
+    </aside>
+  </div>
+
+  <button class="back-to-top" type="button" aria-label="Вернуться к началу" title="Наверх">↑</button>
+
+  <footer>
+    Автономный HTML-документ · адаптирован для телефона, планшета, компьютера и печати
+  </footer>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const themeButton = document.querySelector(".theme-toggle");
+      const progressBar = document.querySelector(".progress__bar");
+      const backToTop = document.querySelector(".back-to-top");
+      const tocLinks = [...document.querySelectorAll(".toc a")];
+      const sections = tocLinks
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      const savedTheme = localStorage.getItem("channel-analysis-theme");
+      const preferredDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      root.dataset.theme = savedTheme || (preferredDark ? "dark" : "light");
+
+      themeButton.addEventListener("click", () => {
+        const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = nextTheme;
+        localStorage.setItem("channel-analysis-theme", nextTheme);
+      });
+
+      const updateScrollUI = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+        progressBar.style.width = `${Math.min(progress, 100)}%`;
+        backToTop.classList.toggle("is-visible", window.scrollY > 600);
+
+        let currentSection = sections[0];
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= 150) currentSection = section;
+        }
+        tocLinks.forEach((link) => {
+          link.setAttribute(
+            "aria-current",
+            link.getAttribute("href") === `#${currentSection?.id}` ? "true" : "false"
+          );
+        });
+      };
+
+      window.addEventListener("scroll", updateScrollUI, { passive: true });
+      window.addEventListener("resize", updateScrollUI);
+      backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+      updateScrollUI();
+    })();
+  </script>
+</body>
+</html>
